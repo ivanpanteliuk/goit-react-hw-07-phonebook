@@ -2,9 +2,9 @@ import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { Notify } from 'notiflix';
 
-import { addContact } from 'redux/contacts/contactsSlice';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import { Input, Button, Form, Label } from './ContactForm.styled';
+import { addContact } from 'redux/operations';
 
 const notifyOptions = {
   width: '450px',
@@ -21,7 +21,7 @@ Notify.init(notifyOptions);
 
 function ContactForm() {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const nameInputId = nanoid();
   const telInputId = nanoid();
@@ -45,7 +45,7 @@ function ContactForm() {
       return Notify.failure(`"${number}" is already in contacts.`);
     }
 
-    dispatch(addContact(name, number));
+    dispatch(addContact({ name: name, phone: number }));
     Notify.success(`"${name}" added to phonebook successfully`);
 
     form.reset();

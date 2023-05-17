@@ -19,17 +19,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.main-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 40;
-  color: #fff;
-}
-
-.phonebook,
-.contacts {
-  margin-bottom: 20px;
-}

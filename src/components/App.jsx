@@ -1,43 +1,38 @@
-import { useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { Heading, MainContainer, MainHeading } from './App/App.styled';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import FilterInput from './FilterInput';
-
-// const initialState = [
-//   { id: nanoid(), name: 'Hermione Kline', number: '443-89-12' },
-//   { id: nanoid(), name: 'Rosie Simpson', number: '459-12-56' },
-//   { id: nanoid(), name: 'Eden Clements', number: '645-17-79' },
-//   { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-// ];
+import { selectContacts, selectError, selectIsLoading } from 'redux/selectors';
+import { useEffect } from 'react';
+import { getContacts } from 'redux/operations';
+import ErrorMessage from './ErrorMessage/ErrorMessage';
+import Loader from './Loader/Loader';
 
 export function App() {
-  const contacts = useSelector(getContacts);
-  // const [contacts, setContacts] = useState(
-  //   () =>
-  //     JSON.parse(window.localStorage.getItem('contacts')) ?? [...initialState]
-  // );
-  // const [filter, setFilter] = useState('');
+  const contacts = useSelector(selectContacts);
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectIsLoading);
 
-  // useEffect(() => {
-  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  //   if (contacts.length === 0) {
-  //     localStorage.removeItem('contacts');
-  //   }
-  // }, [contacts]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getContacts());
+  }, [dispatch]);
 
   return (
-    <div className="main-container">
-      <h1 className="phonebook">Phonebook</h1>
+    <MainContainer>
+      <MainHeading>Phonebook</MainHeading>
       <ContactForm />
-      {contacts.length !== 0 && (
+      {error && <ErrorMessage message={error} />}
+      {isLoading && <Loader />}
+      {!!contacts.length && (
         <>
-          <h2 className="contacts">Contacts</h2>
-          <FilterInput />
+          <Heading>Contacts</Heading>
+          {contacts.length > 1 && <FilterInput />}
           <ContactList />
         </>
       )}
-    </div>
+    </MainContainer>
   );
 }
