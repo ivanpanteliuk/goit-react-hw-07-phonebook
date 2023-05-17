@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as contactsAPI from '../services/contactsAPIService';
+import { Notify } from 'notiflix';
 
 export const getContacts = createAsyncThunk(
   'contacts/getContacts',
@@ -27,7 +28,9 @@ export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id, { rejectWithValue }) => {
     try {
-      return await contactsAPI.fetchDeleteContact(id);
+      const data = await contactsAPI.fetchDeleteContact(id);
+      Notify.success(`Contact "${data.name}" was deleted successfully`);
+      return data;
     } catch (e) {
       rejectWithValue(e.message);
     }

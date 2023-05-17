@@ -3,7 +3,12 @@ import { Heading, MainContainer, MainHeading } from './App/App.styled';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import FilterInput from './FilterInput';
-import { selectContacts, selectError, selectIsLoading } from 'redux/selectors';
+import {
+  selectContacts,
+  selectError,
+  selectIsLoading,
+  selectVisibleContacts,
+} from 'redux/selectors';
 import { useEffect } from 'react';
 import { getContacts } from 'redux/operations';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
@@ -11,6 +16,7 @@ import Loader from './Loader/Loader';
 
 export function App() {
   const contacts = useSelector(selectContacts);
+  const visibleContacts = useSelector(selectVisibleContacts);
   const error = useSelector(selectError);
   const isLoading = useSelector(selectIsLoading);
 
@@ -30,7 +36,7 @@ export function App() {
         <>
           <Heading>Contacts</Heading>
           {contacts.length > 1 && <FilterInput />}
-          <ContactList />
+          {!!visibleContacts.length && <ContactList />}
         </>
       )}
     </MainContainer>

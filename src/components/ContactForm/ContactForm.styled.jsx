@@ -7,14 +7,15 @@ export const Form = styled.form`
   width: 400px;
   padding: 50px;
   margin-bottom: 20px;
-  background-color: rgba(65, 65, 67, 1);
-  background-image: linear-gradient(
+  background: rgb(217, 176, 94);
+  background: linear-gradient(
     90deg,
-    rgba(65, 65, 67, 1) 0%,
-    rgba(65, 65, 67, 1) 53%
+    rgba(217, 176, 94, 1) 0%,
+    rgba(71, 43, 1, 1) 100%
   );
-  box-shadow: 15px 12px 29px -1px rgba(66, 68, 90, 1),
-    inset -1px 2px 24px 0px rgba(0, 194, 255, 1);
+  box-shadow: 0 0 5px rgba(255, 125, 0, 0.6) inset,
+    0 0 10px 2px rgba(255, 175, 0, 0.5) inset,
+    0 0 15px 4px rgba(255, 225, 0, 0.4) inset, 5px 5px 5px rgba(0, 0, 0, 0.2);
 `;
 
 export const Input = styled.input`
@@ -39,7 +40,7 @@ export const Button = styled.button`
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: #2be7f5;
+    background-color: #ebd747;
   }
 `;
 
