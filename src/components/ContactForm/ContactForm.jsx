@@ -46,8 +46,6 @@ function ContactForm() {
     }
 
     dispatch(addContact({ name: name, phone: number }));
-    Notify.success(`"${name}" added to phonebook successfully`);
-
     form.reset();
   };
 

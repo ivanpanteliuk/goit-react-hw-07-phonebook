@@ -17,7 +17,9 @@ export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (contact, { rejectWithValue }) => {
     try {
-      return await contactsAPI.fetchPostContact(contact);
+      const data = await contactsAPI.fetchPostContact(contact);
+      Notify.success(`"${data.name}" added to phonebook successfully`);
+      return data;
     } catch (e) {
       rejectWithValue(e.message);
     }
